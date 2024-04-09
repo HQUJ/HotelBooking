@@ -1,0 +1,42 @@
+﻿@page
+@model Hotel9.Controllers.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].CheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].StayDuration)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Booking) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckIn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StayDuration)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
