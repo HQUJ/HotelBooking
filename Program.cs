@@ -1,4 +1,4 @@
-using Hotel9.Data;
+﻿using Hotel9.Data;
 using Hotel9.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -22,6 +22,7 @@ namespace Hotel9
 
             var app = builder.Build();
 
+            //Добавя стаи във списъка със стаи
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;

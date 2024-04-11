@@ -26,22 +26,29 @@ namespace Hotel9.Controllers
         }
 
         
-
         // GET: Booking2
         public async Task<IActionResult> Index()
         {
             return View(await _context.Bookings2.Where(x => x.ClientUsername == User.Identity.Name).ToListAsync());
         }
+
+
+        // Връща Sorry, there are no available rooms
         public async Task<IActionResult> Sorry()
         {
             return View();
         }
+
+
+        //Прави списък със стаите, които клиентът може да наеме за избрания от него период
+        //Ако има стаи, ги извежда, а ако не - изписва Sorry, there are no available rooms
         public async Task<IActionResult> AvailableRooms()
         {
             List<Room> rooms = new List<Room>(_context.Rooms);
             List<Booking2> bookings = new List<Booking2>(_context.Bookings2);
             Booking2 CustomerBooking = new Booking2(bookings.Last());
             bookings.RemoveAt(bookings.Count - 1);
+            //премахва заетите стаи
             foreach(var el in bookings)
             {
                 if((CustomerBooking.CheckIn >= el.CheckIn && CustomerBooking.CheckIn <= el.CheckIn.AddDays(el.StayDuration))||
@@ -50,8 +57,10 @@ namespace Hotel9.Controllers
                     rooms.RemoveAt(rooms.FindIndex( m => m.Id == el.RoomId));
                 }
             }
+            //ако има свободни стаи, ги извежда
             if (rooms.Where(x => x.Type == CustomerBooking.RoomType).ToList().Count != 0)
                 return View( rooms.Where(x => x.Type == CustomerBooking.RoomType).ToList());
+            //ако не, извежда Sorry
             else
             {
                 var booking2 = await _context.Bookings2.FindAsync(CustomerBooking.Id);
@@ -66,6 +75,8 @@ namespace Hotel9.Controllers
             
         }
 
+
+        //В списъка Booking2 запазва ID на стаята, която наема клиента
         public async Task<IActionResult> Book(int? id)
         {
             if (id == null)
@@ -83,6 +94,8 @@ namespace Hotel9.Controllers
             return View(booking2);
         }
 
+
+        //Връща Thanks като знак за успешно резервиране на стая
         public async Task<IActionResult> Thanks()
         {
             return View();
@@ -125,8 +138,8 @@ namespace Hotel9.Controllers
         {
             if (ModelState.IsValid)
             {
+                //взима ID на клиента и го запавза в резервацияата
                 var currentUser = await _userManager.GetUserAsync(User);
-                //if (currentUser == null) return Challenge();
                 booking2.ClientUsername = User.Identity.Name;
                 _context.Add(booking2);
                 await _context.SaveChangesAsync();

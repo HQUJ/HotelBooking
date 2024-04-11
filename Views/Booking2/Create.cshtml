@@ -23,11 +23,11 @@
                 <label asp-for="RoomType" class="control-label"></label>
                 <select asp-for="RoomType">
                     <option value = "">Select</option>
-                    <option value = "единична">Single</option>
-                    <option value = "двойна">Double</option>
-                    <option value = "апартамент">Аpartment</option>
+                    <option value = "Single">Single</option>
+                    <option value="Double">Double</option>
+                    <option value="Apartment">Аpartment</option>
                 </select>
-               <!-- <input asp-for="RoomType" class="form-control" /> -->
+               
                 <span asp-validation-for="RoomType" class="text-danger"></span>
                 
             </div>
@@ -48,9 +48,6 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
