@@ -53,7 +53,7 @@ namespace Hotel9.Controllers
             {
                 if((CustomerBooking.CheckIn >= el.CheckIn && CustomerBooking.CheckIn <= el.CheckIn.AddDays(el.StayDuration))||
                     (CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) <= el.CheckIn.AddDays(el.StayDuration) && CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) >= el.CheckIn) ||
-                    (CustomerBooking.CheckIn < el.CheckIn && CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) >= el.CheckIn.AddDays(el.StayDuration)))
+                    (CustomerBooking.CheckIn <= el.CheckIn && CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) >= el.CheckIn.AddDays(el.StayDuration)))
                 {
                     rooms.RemoveAt(rooms.FindIndex( m => m.Id == el.RoomId));
                 }
