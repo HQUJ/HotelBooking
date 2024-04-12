@@ -11,11 +11,12 @@ body {
 
 header {
     width: 100%;
-    padding: 15px                                   1%;
-    color: #F3E1DD;
+    padding: 15px 1%;
+    color: #CC7178;
     justify-content: space-between;
     align-items: center;
     background: #CC7178;
+    background-color: #CC7178;
     border-bottom: 2px solid #F3E1DD;
 }
 
