@@ -36,7 +36,7 @@ header {
         }
 
 main {
-    width: 100%;
+    width: 100% ;
     padding: 15px 10%;
     margin: 50px 0;
 }
@@ -52,18 +52,18 @@ footer {
 }
 
 main label {
-    width: 100%;
-    margin-top: 10px;
+    width: 100%; 
+    margin-top: -7px;
     display: block;
 }
 
 main input:not([type="submit"]) {
-    width: 90%;
+    width: 100%;
     padding: 10px 14px;
-    font-size: 14px;
+    font-size: 17px;
     border-radius: 5px;
     border 2px #C7D9B7;
-    margin-top: 7px;
+    margin-top: 3px;
 }
 
     main input:not([type="submit"]):focus {

@@ -4,32 +4,40 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1>Rooms</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Price)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Type)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Price)
-            </td>
-            
-        </tr>
-}
-    </tbody>
-</table>
+
+  
+<h3><strong>Single - 50.00 LV</strong></h3>
+<tr>
+    <td>
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/184305239.jpg?k=2d22fe63ae1f8960e057238c98fb436f7bd9f65854e3a5e918607c5cfa1d0a52&o=&hp=1" style="width:460px;height:360px;" />
+    </td>
+    <td>
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1280x900/401841377.jpg?k=cf578931e40225ef46930ca5e592c4a81b203d195c61d54e1be3a36b65683ea5&o=&hp=1" style="width:460px;height:360px;" />
+    </td>
+
+</tr>
+
+<h3><strong><br>Double - 60.00 LV</strong></h3>
+<tr>
+    <td>
+        <img src="https://ac-a.static.booking.cn/xdata/images/hotel/max1024x768/354562511.jpg?k=4e7b5c3c85a2ada2159c5c0c0280318f3dd26d70ad3492199bf936b4306721f0&o=&hp=1" style="width:460px;height:360px;" />
+    </td>
+    <td>
+        <img src="https://the-empire-hotel-new-york.hotelmix.co.uk/data/Photos/1920x1080//10319/1031948/1031948032.JPEG" style="width:460px;height:360px;" />
+    </td>
+
+</tr>
+<h3><strong><br>Apartment - 75.00 LV</strong></h3>
+<tr>
+
+    <td>
+        <img src="https://www.kayak.com/rimg/himg/e6/c3/5e/ice-89073066-63380686_3XL-363292.jpg?width=968&height=607&crop=true" style="width:460px;height:360px;" />
+    </td>
+    <td>
+        <img src="https://www.kayak.com/rimg/himg/e6/c3/5e/ice-89073066-63380668_3XL-385268.jpg?width=968&height=607&crop=true" style="width:460px;height:360px;" />
+    </td>
+
+</tr>

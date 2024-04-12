@@ -80,10 +80,14 @@ namespace Hotel9.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-
+            [Required]
             public string Adress { get; set; }
+            [Required]
             public string Name { get; set; }
+            [Required]
+            [Range(1000000000,9999999999)]
             public long Id_card { get; set; }
+            [ScaffoldColumn(false)]
             public bool Regular_client { get; set; }
 
             /// <summary>
