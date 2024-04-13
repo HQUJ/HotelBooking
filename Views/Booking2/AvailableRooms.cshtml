@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Hotel9.Models.Room>
+﻿@model Hotel9.Controllers.Booking2Controller.AvailableRoomsModel
+
 
 @{
     ViewData["Title"] = "AvailableRooms";
@@ -10,16 +11,16 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Html.DisplayNameFor(model => model.Rooms[0].Type)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.Rooms[0].Price)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Rooms) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Type)
@@ -27,12 +28,12 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
-             <td>  <a asp-action="Book" asp-route-id="@item.Id">Book</a> </td>
+                <td>  <a asp-action="Book" asp-route-Roomid="@item.Id" asp-route-Booking2id="@Model.BookingId">Book</a> </td>
         </tr>
 }
         <tr>
             <td>RoomCount: </td>
-            <td> @Model.Count() </td>
+            <td> @Model.Rooms.Count() </td>
         </tr>
     </tbody>
 </table>

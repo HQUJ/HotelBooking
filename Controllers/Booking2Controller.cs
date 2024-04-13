@@ -42,14 +42,15 @@ namespace Hotel9.Controllers
 
         //Прави списък със стаите, които клиентът може да наеме за избрания от него период
         //Ако има стаи, ги извежда, а ако не - изписва Sorry, there are no available rooms
-        public async Task<IActionResult> AvailableRooms()
+        public async Task<IActionResult> AvailableRooms(int id)
         {
+            AvailableRoomsModel model = new AvailableRoomsModel();
             List<Room> rooms = new List<Room>(_context.Rooms);
             List<Booking2> bookings = new List<Booking2>(_context.Bookings2);
-            Booking2 CustomerBooking = new Booking2(bookings.Last());
-            bookings.RemoveAt(bookings.Count - 1);
+            Booking2 CustomerBooking = new Booking2(_context.Bookings2.FirstOrDefault(x => x.Id == id));
+            bookings.RemoveAt(bookings.FindIndex(x => x.Id == id));
             //премахва заетите стаи
-            foreach(var el in bookings)
+            foreach (var el in bookings)
             {
                 if((CustomerBooking.CheckIn >= el.CheckIn && CustomerBooking.CheckIn <= el.CheckIn.AddDays(el.StayDuration))||
                     (CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) <= el.CheckIn.AddDays(el.StayDuration) && CustomerBooking.CheckIn.AddDays(CustomerBooking.StayDuration) >= el.CheckIn) ||
@@ -60,7 +61,11 @@ namespace Hotel9.Controllers
             }
             //ако има свободни стаи, ги извежда
             if (rooms.Where(x => x.Type == CustomerBooking.RoomType).ToList().Count != 0)
-                return View( rooms.Where(x => x.Type == CustomerBooking.RoomType).ToList());
+            {
+                model.Rooms = rooms.Where(x => x.Type == CustomerBooking.RoomType).ToList();
+                model.BookingId = CustomerBooking.Id;
+                return View(model); 
+            }
             //ако не, извежда Sorry
             else
             {
@@ -78,23 +83,35 @@ namespace Hotel9.Controllers
 
 
         //В списъка Booking2 запазва ID на стаята, която наема клиента
-        public async Task<IActionResult> Book(int? id)
+        public async Task<IActionResult> Book(int? Roomid, int? Booking2id)
         {
-            if (id == null)
+            if (Roomid == null || Booking2id == null)
             {
                 return NotFound();
             }
 
-            Booking2 booking2 = _context.Bookings2.OrderByDescending(x => x.Id).FirstOrDefault();
+            Booking2 booking2 = _context.Bookings2.FirstOrDefault(x => x.Id == Booking2id);
             if (booking2 == null)
             {
                 return NotFound();
             }
-            booking2.RoomId = id;
+            booking2.RoomId = Roomid;
             _context.SaveChanges();
             return View(booking2);
         }
 
+        //Модел за AvailableRooms view
+        public class AvailableRoomsModel
+        {
+            public List<Room> Rooms { get; set; }
+            public int BookingId { get; set; }
+
+            public AvailableRoomsModel()
+            {
+                this.Rooms = new List<Room>();
+                
+            }
+        }
 
         //Връща Thanks като знак за успешно резервиране на стая
         public async Task<IActionResult> Thanks()
@@ -144,7 +161,7 @@ namespace Hotel9.Controllers
                 booking2.ClientUsername = User.Identity.Name;
                 _context.Add(booking2);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(AvailableRooms));
+                return RedirectToAction(nameof(AvailableRooms), new{ id = _context.Bookings2.OrderByDescending(x => x.Id).FirstOrDefault().Id});
             }
             return View(booking2);
         }
@@ -181,8 +198,11 @@ namespace Hotel9.Controllers
             {
                 try
                 {
+                    booking2.ClientUsername = User.Identity.Name;
                     _context.Update(booking2);
                     await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(AvailableRooms), new { id = booking2.Id});
+                    
                 }
                 catch (DbUpdateConcurrencyException)
                 {
