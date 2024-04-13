@@ -21,12 +21,13 @@ namespace Hotel9.Models
         public string RoomType { get; set; }
         
         [Required]
+        [Display(Name = "Check in")]
         [DateGreaterThanToday]
         public DateTime CheckIn { get; set; }
 
         [Required]
-        [Display(Name = "Stay Duration")]
-        [Range(1, 20, ErrorMessage = "Stay Duration must be between 1 and 20 days")]
+        [Display(Name = "Nights to stay")]
+        [Range(1, 20, ErrorMessage = "You must choose a number between 1 and 20 days")]
         public int StayDuration { get; set; }
 
         public Booking2() { }

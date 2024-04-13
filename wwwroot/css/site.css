@@ -57,7 +57,7 @@ main label {
     display: block;
 }
 
-main input:not([type="submit"]) {
+label{
     width: 100%;
     padding: 10px 14px;
     font-size: 17px;
