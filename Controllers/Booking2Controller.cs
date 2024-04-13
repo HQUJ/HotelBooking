@@ -99,6 +99,8 @@ namespace Hotel9.Controllers
             _context.SaveChanges();
             return View(booking2);
         }
+
+        //Модел за AvailableRooms view
         public class AvailableRoomsModel
         {
             public List<Room> Rooms { get; set; }
